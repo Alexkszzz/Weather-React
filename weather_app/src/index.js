@@ -7,9 +7,11 @@ import 'mdbreact/dist/css/mdb.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const suggestions = ['Melbourne', 'Sydney', 'Canberra', 'Queensland']
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App suggestions={suggestions} />
   </React.StrictMode>,
   document.getElementById('root')
 );

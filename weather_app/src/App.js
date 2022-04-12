@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Weather from './components/weather.js';
 import Stats from './components/stats.js';
-import './styles/weather.css'
+import './styles/App.css'
 
 
-function App() {
+function App(props) {
   const [long_lat, setLongLat] = useState([0, 0]);
   const [city, setCity] = useState("");
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
+  var suggestions = props.suggestions
 
   function handleChange(e) {
     setSearch(e.target.value);
@@ -22,6 +23,8 @@ function App() {
         setCity(result[0].name);
         setLongLat([result[0].lon, result[0].lat])
       })
+    suggestions.pop()
+    suggestions.unshift(search)
   }
 
   const fetchDataNow = async () => {
@@ -48,7 +51,10 @@ function App() {
               <div className="row px-3"> <input type="text" name="location" placeholder="Another location" className="mb-5" onChange={handleChange} />
                 <div className="fa fa-search mb-5 mr-0 text-center" onClick={() => fetchLocation(search)} />
               </div>
-              {(typeof data.main !== 'undefined') ? (<Stats data={data} />) : (<div>Loading...</div>)}
+              <div className="mr-5">
+                {suggestions.map(suggestions => { return <p className="light-text suggestion" onClick={() => { fetchLocation(suggestions) }}>{suggestions}</p> })}
+                {(typeof data.main !== 'undefined') ? (<Stats data={data} />) : (<div>Loading...</div>)}
+              </div>
             </div>
           </div>
         </div>
