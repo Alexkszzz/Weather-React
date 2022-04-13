@@ -23,8 +23,10 @@ function App(props) {
         setCity(result[0].name);
         setLongLat([result[0].lon, result[0].lat])
       })
-    suggestions.pop()
-    suggestions.unshift(search)
+    if (!suggestions.includes(search)) {
+      suggestions.pop()
+      suggestions.unshift(search)
+    }
   }
 
   const fetchDataNow = async () => {
