@@ -39,6 +39,12 @@ function App(props) {
       })
   };
 
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      fetchLocation(search);
+    }
+  }
+
   useEffect(() => {
     fetchDataNow();
   }, long_lat);
@@ -50,7 +56,7 @@ function App(props) {
           <div className="row card0">
             {(typeof data.main !== 'undefined') ? (<Weather WeatherData={data} city={city} />) : (<div>Loading...</div>)}
             <div className="card2 col-lg-4 col-md-5">
-              <div className="row px-3"> <input type="text" name="location" placeholder="Another location" className="mb-5" onChange={handleChange} />
+              <div className="row px-3"> <input type="text" name="location" placeholder="Another location" className="mb-5" onChange={handleChange} onKeyDown={handleKeyPress} />
                 <div className="fa fa-search mb-5 mr-0 text-center" onClick={() => fetchLocation(search)} />
               </div>
               <div className="mr-5">
